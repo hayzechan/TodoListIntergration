@@ -19,7 +19,6 @@ public class TodoListService {
         //select *
     }
 
-    //TODO add advice
     public TodoItem findById(Integer id){
         return this.todoListRepository.findById(id).orElseThrow(RuntimeException::new);
     }
@@ -28,9 +27,14 @@ public class TodoListService {
         return this.todoListRepository.save(todoItem);
     }
 
-    public TodoItem updateTodoItem(Integer id, TodoItem todoItem){
-        TodoItem rawTodoItem = this.todoListRepository.findById(id).orElseThrow(RuntimeException::new);
-        rawTodoItem.setDone(todoItem.getDone());
+    public TodoItem updateTodoItem(Integer id, TodoItem updateItem){
+        TodoItem todoItem = this.todoListRepository.findById(id).orElseThrow(RuntimeException::new);
+        if(updateItem.getText() != null){
+            todoItem.setText(updateItem.getText());
+        }
+        if(updateItem.getDone() != null){
+            todoItem.setDone(updateItem.getDone());
+        }
         return this.todoListRepository.save(todoItem);
     }
     public void deleteById(Integer id){

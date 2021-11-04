@@ -18,6 +18,8 @@ dependencies {
 	runtimeOnly 'mysql:mysql-connector-java'
 	testRuntimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api'
+	testCompileOnly "org.mockito:mockito-core:3.4.0"
 	implementation 'org.flywaydb:flyway-core'
 }
 

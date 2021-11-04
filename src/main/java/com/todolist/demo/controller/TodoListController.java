@@ -1,6 +1,7 @@
 package com.todolist.demo.controller;
 
 
+import com.todolist.demo.dto.TodoListRequest;
 import com.todolist.demo.dto.TodoListResponse;
 import com.todolist.demo.entity.TodoItem;
 import com.todolist.demo.mapper.TodoListMapper;
@@ -44,8 +45,10 @@ public class TodoListController {
 
     @PutMapping("/{id}")
     public TodoListResponse updateTodoItem(@PathVariable Integer id,
-                                           @RequestBody TodoItem todoItem){
-        return this.todoListMapper.toResponse(todoListService.updateTodoItem(id,todoItem));
+                                           @RequestBody TodoListRequest todoListRequest){
+        return this.todoListMapper
+                .toResponse(todoListService
+                .updateTodoItem(id,todoListMapper.toEntity(todoListRequest)));
     }
 
     @DeleteMapping("/{id}")
