@@ -1,4 +1,5 @@
 package com.todolist.demo.dto;
+
 //TBC, no need to do right now
 public class TodoListRequest {
     private String text;

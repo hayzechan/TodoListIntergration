@@ -9,14 +9,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TodoListMapper {
-    public TodoItem toEntity(TodoListRequest todoListRequest){
+    public TodoItem toEntity(TodoListRequest todoListRequest) {
         TodoItem todoItem = new TodoItem();
         BeanUtils.copyProperties(todoListRequest, todoItem);
 
         return todoItem;
     }
 
-    public TodoListResponse toResponse(TodoItem todoItem){
+    public TodoListResponse toResponse(TodoItem todoItem) {
         TodoListResponse todoListResponse = new TodoListResponse();
 
         BeanUtils.copyProperties(todoItem, todoListResponse);

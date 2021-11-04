@@ -14,30 +14,31 @@ public class TodoListService {
         this.todoListRepository = todoListRepository;
     }
 
-    public List<TodoItem> findAll(){
+    public List<TodoItem> findAll() {
         return this.todoListRepository.findAll();
         //select *
     }
 
-    public TodoItem findById(Integer id){
+    public TodoItem findById(Integer id) {
         return this.todoListRepository.findById(id).orElseThrow(RuntimeException::new);
     }
 
-    public TodoItem createTodoList(TodoItem todoItem){
+    public TodoItem createTodoList(TodoItem todoItem) {
         return this.todoListRepository.save(todoItem);
     }
 
-    public TodoItem updateTodoItem(Integer id, TodoItem updateItem){
+    public TodoItem updateTodoItem(Integer id, TodoItem updateItem) {
         TodoItem todoItem = this.todoListRepository.findById(id).orElseThrow(RuntimeException::new);
-        if(updateItem.getText() != null){
+        if (updateItem.getText() != null) {
             todoItem.setText(updateItem.getText());
         }
-        if(updateItem.getDone() != null){
+        if (updateItem.getDone() != null) {
             todoItem.setDone(updateItem.getDone());
         }
         return this.todoListRepository.save(todoItem);
     }
-    public void deleteById(Integer id){
+
+    public void deleteById(Integer id) {
         this.todoListRepository.deleteById(id);
     }
 

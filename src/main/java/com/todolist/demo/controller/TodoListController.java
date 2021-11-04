@@ -25,7 +25,7 @@ public class TodoListController {
     }
 
     @GetMapping
-    public List<TodoListResponse> findAllTodoList(){
+    public List<TodoListResponse> findAllTodoList() {
         return this.todoListService.findAll()
                 .stream()
                 .map(todoListMapper::toResponse)
@@ -33,27 +33,27 @@ public class TodoListController {
     }
 
     @GetMapping("/{id}")
-    public TodoListResponse findById(@PathVariable Integer id){
+    public TodoListResponse findById(@PathVariable Integer id) {
         return this.todoListMapper.toResponse(todoListService.findById(id));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TodoListResponse createTodoList(@RequestBody TodoItem todoItem){
+    public TodoListResponse createTodoList(@RequestBody TodoItem todoItem) {
         return this.todoListMapper.toResponse(todoListService.createTodoList(todoItem));
     }
 
     @PutMapping("/{id}")
     public TodoListResponse updateTodoItem(@PathVariable Integer id,
-                                           @RequestBody TodoListRequest todoListRequest){
+                                           @RequestBody TodoListRequest todoListRequest) {
         return this.todoListMapper
                 .toResponse(todoListService
-                .updateTodoItem(id,todoListMapper.toEntity(todoListRequest)));
+                        .updateTodoItem(id, todoListMapper.toEntity(todoListRequest)));
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteById(@PathVariable Integer id){
+    public void deleteById(@PathVariable Integer id) {
         this.todoListService.deleteById(id);
     }
 }
