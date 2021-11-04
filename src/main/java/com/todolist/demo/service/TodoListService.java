@@ -27,4 +27,14 @@ public class TodoListService {
     public TodoItem createTodoList(TodoItem todoItem){
         return this.todoListRepository.save(todoItem);
     }
+
+    public TodoItem updateTodoItem(Integer id, TodoItem todoItem){
+        TodoItem rawTodoItem = this.todoListRepository.findById(id).orElseThrow(RuntimeException::new);
+        rawTodoItem.setDone(todoItem.getDone());
+        return this.todoListRepository.save(todoItem);
+    }
+    public void deleteById(Integer id){
+        this.todoListRepository.deleteById(id);
+    }
+
 }

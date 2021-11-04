@@ -6,6 +6,7 @@ import com.todolist.demo.repository.TodoListRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.OverrideAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -80,5 +81,33 @@ public class TodoItemControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.text").value(todoItem.getText()))
                 .andExpect(jsonPath("$.done").value(todoItem.getDone()));
+    }
+
+    @Test
+    void should_update_one_todo_item_when_update_given_todo_info() throws Exception{
+        //given
+        TodoItem todoItem = new TodoItem("text1",false);
+        TodoItem updateTodoItem = todoListRepository.save(todoItem);
+        updateTodoItem.setDone(true);
+        //when
+        ResultActions resultActions = mockMvc.perform(put("/todos/" + updateTodoItem.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(updateTodoItem)));
+        //then
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.text").value(updateTodoItem.getText()))
+                .andExpect(jsonPath("$.done").value(updateTodoItem.getDone()));
+    }
+
+    @Test
+    void should_delete_one_todo_item_when_delete_given_todo_item_id() throws Exception{
+        //given
+        TodoItem todoItem = new TodoItem("text1",false);
+        todoListRepository.save(todoItem);
+        //when
+        ResultActions resultActions = mockMvc.perform(delete("/todos/" + todoItem.getId()));
+        //then
+        resultActions.andExpect(status().isNoContent());
     }
 }

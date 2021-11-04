@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/todos")
+//@CrossOrigin(origins = "http://localhost:3000")
 public class TodoListController {
     private final TodoListService todoListService;
     private final TodoListMapper todoListMapper;
@@ -39,5 +40,17 @@ public class TodoListController {
     @ResponseStatus(HttpStatus.CREATED)
     public TodoListResponse createTodoList(@RequestBody TodoItem todoItem){
         return this.todoListMapper.toResponse(todoListService.createTodoList(todoItem));
+    }
+
+    @PutMapping("/{id}")
+    public TodoListResponse updateTodoItem(@PathVariable Integer id,
+                                           @RequestBody TodoItem todoItem){
+        return this.todoListMapper.toResponse(todoListService.updateTodoItem(id,todoItem));
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteById(@PathVariable Integer id){
+        this.todoListService.deleteById(id);
     }
 }
