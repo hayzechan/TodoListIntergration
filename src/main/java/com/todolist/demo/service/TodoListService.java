@@ -1,6 +1,7 @@
 package com.todolist.demo.service;
 
 import com.todolist.demo.entity.TodoItem;
+import com.todolist.demo.exception.TodoItemNotFoundException;
 import com.todolist.demo.repository.TodoListRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +17,10 @@ public class TodoListService {
 
     public List<TodoItem> findAll() {
         return this.todoListRepository.findAll();
-        //select *
     }
 
     public TodoItem findById(Integer id) {
-        return this.todoListRepository.findById(id).orElseThrow(RuntimeException::new);
+        return this.todoListRepository.findById(id).orElseThrow(TodoItemNotFoundException::new);
     }
 
     public TodoItem createTodoList(TodoItem todoItem) {
@@ -28,7 +28,7 @@ public class TodoListService {
     }
 
     public TodoItem updateTodoItem(Integer id, TodoItem updateItem) {
-        TodoItem todoItem = this.todoListRepository.findById(id).orElseThrow(RuntimeException::new);
+        TodoItem todoItem = this.todoListRepository.findById(id).orElseThrow(TodoItemNotFoundException::new);
         if (updateItem.getText() != null) {
             todoItem.setText(updateItem.getText());
         }
